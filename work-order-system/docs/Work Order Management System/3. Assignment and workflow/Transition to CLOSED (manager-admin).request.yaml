@@ -1,0 +1,17 @@
+$kind: http-request
+name: Transition to CLOSED (manager/admin)
+url: "{{baseUrl}}/api/work-orders/{{workOrderId}}/transition/"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "status": "CLOSED"
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test("Status is 200", function () { pm.response.to.have.status(200); });
+    language: text/javascript
+order: 4000

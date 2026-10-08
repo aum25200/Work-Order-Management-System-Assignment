@@ -1,0 +1,5 @@
+{% extends 'service/base.html' %}
+{% block title %}Sign in · WorkOrder Pro{% endblock %}
+{% block auth_content %}
+<div class="login-page"><div class="login-card"><div class="login-brand"><span class="brand-mark">W</span><div><strong>WorkOrder<span class="brand-accent">Pro</span></strong><small>Service operations platform</small></div></div><h1>Welcome back</h1><p class="muted">Sign in to manage requests, technicians and work orders.</p>{% if messages %}{% for message in messages %}<div class="message error">{{ message }}</div>{% endfor %}{% endif %}<form method="post">{% csrf_token %}<label>Username<input name="username" autocomplete="username" required autofocus></label><label>Password<input type="password" name="password" autocomplete="current-password" required></label><button class="btn primary wide">Sign in</button></form><div class="login-foot">Role-based access · Audit history · Secure attachments</div></div></div>
+{% endblock %}

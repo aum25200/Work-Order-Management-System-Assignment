@@ -1,0 +1,22 @@
+$kind: http-request
+description: Run this first. Saves the token in the collection variable {{token}}; every other request uses it.
+url: "{{baseUrl}}/api/auth/token/"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "username": "tech2",
+      "password": "Demo@12345"
+    }
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status is 200", function () { pm.response.to.have.status(200); });
+      pm.collectionVariables.set("token", pm.response.json().token);
+    language: text/javascript
+order: 4000

@@ -1,0 +1,7 @@
+# Use this workspace to collaborate
+workspace:
+  id: 78c28db3-7414-4c17-8f49-4fb0e3cc5291
+
+localResources:
+  collections:
+    - ../work-order-system/docs/Work Order Management System

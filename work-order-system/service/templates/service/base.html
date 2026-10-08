@@ -1,0 +1,40 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}WorkOrder Pro{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'service/app.css' %}">
+</head>
+<body>
+{% if current_user.is_authenticated %}
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="{% url 'ui:dashboard' %}"><span class="brand-mark">W</span><span>WorkOrder<span class="brand-accent">Pro</span></span></a>
+    <div class="side-label">Workspace</div>
+    <nav>
+      <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'ui:dashboard' %}">▦ <span>Dashboard</span></a>
+      <a class="nav-link {% if 'work-order' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'ui:work-orders' %}">▤ <span>Work Orders</span></a>
+      {% if current_role == 'Admin' or current_role == 'Manager' %}
+      <a class="nav-link {% if request.resolver_match.url_name == 'customers' %}active{% endif %}" href="{% url 'ui:customers' %}">♙ <span>Customers</span></a>
+      <a class="nav-link {% if request.resolver_match.url_name == 'reports' %}active{% endif %}" href="{% url 'ui:reports' %}">◫ <span>Reports</span></a>
+      {% endif %}
+    </nav>
+    <div class="sidebar-bottom">
+      <a class="nav-link" href="/api/">⌘ <span>API</span></a>
+      <a class="nav-link" href="/admin/">⚙ <span>Admin</span></a>
+    </div>
+  </aside>
+  <main class="main-content">
+    <header class="topbar">
+      <div class="mobile-brand">WorkOrder<span class="brand-accent">Pro</span></div>
+      <div class="topbar-right"><div class="avatar">{{ current_user.username|first|upper }}</div><div><strong>{{ current_user.get_full_name|default:current_user.username }}</strong><small>{{ current_role }}</small></div><a class="logout" href="{% url 'ui:logout' %}">Logout</a></div>
+    </header>
+    {% if messages %}<div class="messages">{% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+    <section class="page">{% block content %}{% endblock %}</section>
+  </main>
+</div>
+{% else %}{% block auth_content %}{% endblock %}{% endif %}
+</body>
+</html>

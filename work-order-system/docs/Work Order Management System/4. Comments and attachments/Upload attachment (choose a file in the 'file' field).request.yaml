@@ -1,0 +1,15 @@
+$kind: http-request
+description: "Allowed: pdf, png, jpg, jpeg, txt, docx, xlsx. Max 10 MiB."
+url: "{{baseUrl}}/api/work-orders/{{workOrderId}}/attachments/"
+method: POST
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src: []
+scripts:
+  - type: afterResponse
+    code: pm.test("Status is 201", function () { pm.response.to.have.status(201); });
+    language: text/javascript
+order: 4000

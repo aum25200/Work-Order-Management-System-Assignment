@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{baseUrl}}/api/customers/"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "username": "newcustomer",
+      "password": "Str0ng!Pass99",
+      "email": "new@example.com",
+      "company": "Initech"
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test("Status is 201", function () { pm.response.to.have.status(201); });
+    language: text/javascript
+order: 2000

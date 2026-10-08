@@ -1,0 +1,17 @@
+$kind: collection
+description: "Import into Postman. Run one of the 'Login as ...' requests first (it stores the token), then try the other folders. IDs in the bundled db.sqlite3: users admin=1, manager1=2, tech1=3, tech2=4, customer1=5, customer2=6; work orders 1-5. Change the collection variables if your IDs differ."
+variables:
+  baseUrl: http://127.0.0.1:8000
+  token: ""
+  workOrderId: "2"
+  technicianId: "3"
+  customerId: "5"
+  attachmentId: "1"
+auth:
+  - id: 225ac4ca-fa28-4737-85cf-bfcfd8b17174
+    type: apikey
+    name: apikey auth
+    credentials:
+      key: Authorization
+      value: Token {{token}}
+      in: header
